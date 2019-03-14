@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <script type="text/javascript" src="jquery-1.7.1.js"></script>
+    <script type="text/javascript" src="jquery.mobile-1.4.5.js"></script>
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.css">
+    <title>Mobile Web</title>
+
+    <script type="text/javascript">
+        $(document).on("mobileinit", function () {
+            $.mobile.defaultPageTransition='slide';
+        });
+    </script>
+</head>
+
+<body>
+    <script type="text/javascript" src="cordova.js"></script>
+    <h1>Mobile Dev</h1>
+    <!-- Page 1 -->
+    <div data-role="page" id="login_page">
+        <!-- <div data-role="panel" id="mypanel">
+            <p>I am a Panel</p>
+        </div> -->
+        <div data-role="header">
+            <!-- <a href="#mypanel" data-transition="slide" class="ui-btn">Sign Up</a> -->
+            <h1>Login Page</h1>
+            
+        </div>
+        <!-- /header -->
+
+        <div class="container">
+            <div class="main">
+                <form class="form" method="post" action="#">
+                    <label>Email :</label>
+                    <input type="text" name="email" id="email">
+                    <label>Password :</label>
+                    <input type="password" name="password" id="password">
+                    <input type="button" name="login" id="login" value="Login">
+                </form>
+            </div>
+            <a href="#register_page" data-transition="slide"
+                class="ui-btn">Sign Up</a>
+        </div>
+        <!-- /content -->
+
+        <div data-role="footer" data-position="fixed">
+            <h4>Gakuo &copy2018</h4>
+        </div>
+        <!-- /footer -->
+    </div>
+    <!-- /page -->
+
+    <!-- Page 2 -->
+    <div data-role="page" id="register_page">
+
+        <div data-role="header">
+            <a href="#login_page" data-transition="slide" data-direction="reverse"
+                class="ui-btn ui-corner-all"></a>
+            <h1>Registration</h1>
+        </div>
+        <!-- /header -->
+
+        <form method="post" action="#pageone" data-ajax="false">
+            <label for="name">Name :
+                <span>*</span>
+            </label>
+            <input type="text" name="name" id="name" placeholder="Name">
+            <label for="email">Email:
+                <span>*</span>
+            </label>
+            <input type="email" id="email" name="email" placeholder="Email" />
+            <fieldset data-role="controlgroup">
+                <legend>Gender:</legend>
+                <label for="male">Male</label>
+                <input type="radio" name="gender" id="male" value="male">
+                <label for="female">Female</label>
+                <input type="radio" name="gender" id="female" value="female">
+            </fieldset>
+            <fieldset data-role="controlgroup">
+
+            </fieldset>
+            <label for="info">Message:</label>
+            <textarea name="addinfo" id="info" placeholder="Message"></textarea>
+            <input type="submit" data-inline="true" value="Submit" data-theme="b">
+        </form>
+        
+        <!-- /content -->
+        <div data-role="footer" data-position="fixed">
+            <h4>Gakuo &copy2018</h4>
+        </div>
+        <!-- /footer -->
+    </div>
+    <!-- /page -->
+
+    <script src="">
+        document.addEventListener('deviceready', onDeviceReady, false);
+
+        function onDeviceReady() {
+            console.log("Device Ready.....");
+        }
+    </script>
+
+</body>
+
+</html>
