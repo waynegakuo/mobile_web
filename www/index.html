@@ -11,7 +11,7 @@
 
     <script type="text/javascript">
         $(document).on("mobileinit", function () {
-            $.mobile.defaultPageTransition='slide';
+            $.mobile.defaultPageTransition = 'slide';
         });
     </script>
 </head>
@@ -27,7 +27,7 @@
         <div data-role="header">
             <!-- <a href="#mypanel" data-transition="slide" class="ui-btn">Sign Up</a> -->
             <h1>Login Page</h1>
-            
+
         </div>
         <!-- /header -->
 
@@ -41,8 +41,7 @@
                     <input type="button" name="login" id="login" value="Login">
                 </form>
             </div>
-            <a href="#register_page" data-transition="slide"
-                class="ui-btn">Sign Up</a>
+            <a href="#register_page" data-transition="slide" class="ui-btn">Sign Up</a>
         </div>
         <!-- /content -->
 
@@ -57,36 +56,50 @@
     <div data-role="page" id="register_page">
 
         <div data-role="header">
-            <a href="#login_page" data-transition="slide" data-direction="reverse"
-                class="ui-btn ui-corner-all"></a>
+            <a href="#login_page" data-transition="slide" data-direction="reverse" class="ui-btn ui-corner-all">Back</a>
             <h1>Registration</h1>
         </div>
         <!-- /header -->
 
-        <form method="post" action="#pageone" data-ajax="false">
-            <label for="name">Name :
+        <form method="post">
+            <label for="fname">First Name :
                 <span>*</span>
             </label>
-            <input type="text" name="name" id="name" placeholder="Name">
+            <input type="text" name="fname" id="fname" placeholder="First Name">
+            <label for="lname">Last Name :
+                <span>*</span>
+            </label>
+            <input type="text" name="lname" id="lname" placeholder="Last Name">
+
             <label for="email">Email:
                 <span>*</span>
             </label>
             <input type="email" id="email" name="email" placeholder="Email" />
-            <fieldset data-role="controlgroup">
-                <legend>Gender:</legend>
-                <label for="male">Male</label>
-                <input type="radio" name="gender" id="male" value="male">
-                <label for="female">Female</label>
-                <input type="radio" name="gender" id="female" value="female">
-            </fieldset>
-            <fieldset data-role="controlgroup">
 
+            <label for="gender">Gender:
+                <span>*</span>
+            </label>
+            <select class="form-control" id="gender" name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+
+            <!-- <legend>Gender:</legend>
+                <label for="male">Male</label>
+                <input type="radio" name="gender" id="gender" value="male">
+                <label for="female">Female</label>
+                <input type="radio" name="gender" id="gender" value="female"> -->
+
+            <fieldset data-role="controlgroup">
             </fieldset>
-            <label for="info">Message:</label>
-            <textarea name="addinfo" id="info" placeholder="Message"></textarea>
-            <input type="submit" data-inline="true" value="Submit" data-theme="b">
+            <label for="password">Password:</label>
+            <input type='password' name="pwd" id="pwd" placeholder="Password">
+
+            <p id="result"></p>
+
+            <input type="submit" data-inline="true" name="register" value="Submit" data-theme="b">
         </form>
-        
+
         <!-- /content -->
         <div data-role="footer" data-position="fixed">
             <h4>Gakuo &copy2018</h4>
@@ -95,12 +108,67 @@
     </div>
     <!-- /page -->
 
-    <script src="">
-        document.addEventListener('deviceready', onDeviceReady, false);
+    <script>
 
-        function onDeviceReady() {
-            console.log("Device Ready.....");
-        }
+        //register
+        $(document).ready(function () {
+            $('#register').on('submit', function (e) {
+                e.preventDefault();
+
+                var fname = document.getElementById("fname").value
+                var lname = document.getElementById("lname").value
+                var email = document.getElementById("email").value
+                var gender = document.getElementById("gender").value
+                var pwd = document.getElementById("pwd").value
+
+                var obj = { "fname": fname, "lname": lname, "email":email, "gender": gender, "pwd": pwd };
+                dbParam = JSON.stringify(obj);
+                console.log("request", dbParam);
+
+                $.ajax({
+                    url: 'http://localhost/mobile_web/processregistration.php',
+                    type: "POST",
+                    dataType: 'json',
+                    data: dbParam,
+
+                    success: function (data) {
+                        console.log("printing success", data);
+                        window.location.href = 'http://localhost/mobile_web/index.html';
+                    },
+                    error: function (error) {
+                        console.log("prinitng error", error.responseText);
+                    }
+                });
+
+                // $.post(
+                //     'http://localhost/mobile_web/processregistration.php',
+                //     {
+                //         fname: $('#fname').val(),
+                //         lname: $('#lname').val(),
+                //         email: $('#email').val(),
+                //         gender: $('#gender').val(),
+                //         pwd: $('#pwd').val(),
+                //     },
+                //     function(result){
+                //         if (result == "success"){
+                //             console.log('Success')
+                //             $('#result').html("Values inserted sucessfully")
+                //         }
+                //         else {
+                //             $('#result').html("Values insertion not sucessful")
+                //         }
+                //     }
+                // )
+
+
+            })
+
+        })
+        // document.addEventListener('deviceready', onDeviceReady, false);
+
+        // function onDeviceReady() {
+        //     console.log("Device Ready.....");
+        // }
     </script>
 
 </body>
