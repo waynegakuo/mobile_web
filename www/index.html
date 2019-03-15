@@ -33,11 +33,11 @@
 
         <div class="container">
             <div class="main">
-                <form class="form" method="post" action="#">
+                <form class="form" method="post">
                     <label>Email :</label>
-                    <input type="text" name="email" id="email">
+                    <input type="email" name="email1" id="email1" required>
                     <label>Password :</label>
-                    <input type="password" name="password" id="password">
+                    <input type="password" name="pwd" id="pwd1">
                     <input type="button" name="login" id="login" value="Login">
                 </form>
             </div>
@@ -65,7 +65,7 @@
             <label for="fname">First Name :
                 <span>*</span>
             </label>
-            <input type="text" name="fname" id="fname" placeholder="First Name">
+            <input type="text" name="fname" id="fname" placeholder="First Name" required>
             <label for="lname">Last Name :
                 <span>*</span>
             </label>
@@ -84,12 +84,6 @@
                 <option value="female">Female</option>
             </select>
 
-            <!-- <legend>Gender:</legend>
-                <label for="male">Male</label>
-                <input type="radio" name="gender" id="gender" value="male">
-                <label for="female">Female</label>
-                <input type="radio" name="gender" id="gender" value="female"> -->
-
             <fieldset data-role="controlgroup">
             </fieldset>
             <label for="password">Password:</label>
@@ -97,7 +91,7 @@
 
             <p id="result"></p>
 
-            <input type="submit" data-inline="true" name="register" value="Submit" data-theme="b">
+            <input type="button" id="register" data-inline="true" name="register" value="Submit" data-theme="b">
         </form>
 
         <!-- /content -->
@@ -108,20 +102,52 @@
     </div>
     <!-- /page -->
 
+    <!-- Page 3 -->
+    <div data-role="page" id="index">
+        <!-- <div data-role="panel" id="mypanel">
+                <p>I am a Panel</p>
+            </div> -->
+        <div data-role="header">
+            <!-- <a href="#mypanel" data-transition="slide" class="ui-btn">Sign Up</a> -->
+            <h1>Index</h1>
+
+        </div>
+        <!-- /header -->
+
+        <div class="container">
+            <div class="main">
+                <p>Welcome Home</p>
+                <!-- <label>Email :</label>
+                    <input type="text" name="email" id="email1">
+                    <label>Password :</label>
+                    <input type="password" name="password" id="password">
+                    <input type="button" name="login" id="login" value="Login"> -->
+            </div>
+            <!-- <a href="#register_page" data-transition="slide" class="ui-btn">Sign Up</a> -->
+        </div>
+        <!-- /content -->
+
+        <div data-role="footer" data-position="fixed">
+            <h4>Gakuo &copy2018</h4>
+        </div>
+        <!-- /footer -->
+    </div>
+
     <script>
 
         //register
         $(document).ready(function () {
-            $('#register').on('submit', function (e) {
+            $('#register').on('click', function (e) {
                 e.preventDefault();
 
+                // if ()
                 var fname = document.getElementById("fname").value
                 var lname = document.getElementById("lname").value
                 var email = document.getElementById("email").value
                 var gender = document.getElementById("gender").value
                 var pwd = document.getElementById("pwd").value
 
-                var obj = { "fname": fname, "lname": lname, "email":email, "gender": gender, "pwd": pwd };
+                var obj = { "fname": fname, "lname": lname, "email": email, "gender": gender, "pwd": pwd };
                 dbParam = JSON.stringify(obj);
                 console.log("request", dbParam);
 
@@ -133,34 +159,39 @@
 
                     success: function (data) {
                         console.log("printing success", data);
-                        window.location.href = 'http://localhost/mobile_web/index.html';
+                        window.location.href = '#login_page';
                     },
                     error: function (error) {
                         console.log("prinitng error", error.responseText);
                     }
                 });
+            })
 
-                // $.post(
-                //     'http://localhost/mobile_web/processregistration.php',
-                //     {
-                //         fname: $('#fname').val(),
-                //         lname: $('#lname').val(),
-                //         email: $('#email').val(),
-                //         gender: $('#gender').val(),
-                //         pwd: $('#pwd').val(),
-                //     },
-                //     function(result){
-                //         if (result == "success"){
-                //             console.log('Success')
-                //             $('#result').html("Values inserted sucessfully")
-                //         }
-                //         else {
-                //             $('#result').html("Values insertion not sucessful")
-                //         }
-                //     }
-                // )
+            //login
+            $('#login').on('click', function (e) {
+                e.preventDefault();
 
+                var email = document.getElementById("email1").value
+                var pwd = document.getElementById("pwd1").value
 
+                var obj = { "email": email, "pwd": pwd };
+                dbParam = JSON.stringify(obj);
+                console.log("request", dbParam);
+
+                $.ajax({
+                    url: 'http://localhost/mobile_web/processlogin.php',
+                    type: "POST",
+                    dataType: 'json',
+                    data: dbParam,
+
+                    success: function (data) {
+                        console.log("printing success", data);
+                        window.location.href = '#index';
+                    },
+                    error: function (error) {
+                        console.log("prinitng error", error.responseText);
+                    }
+                });
             })
 
         })
