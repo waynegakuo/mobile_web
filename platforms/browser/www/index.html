@@ -112,13 +112,10 @@
 
     <!-- Page 3 -->
     <div data-role="page" id="index_page">
-        <!-- <div data-role="panel" id="mypanel">
-                <p>I am a Panel</p>
-            </div> -->
         <div data-role="header">
             <a href="#login_page" data-transition="slide" data-direction="reverse" class="ui-btn ui-corner-all">Back</a>
             <!-- <a href="#mypanel" data-transition="slide" class="ui-btn">Sign Up</a> -->
-            <h1>Index</h1>
+            <h1>Home Page</h1>
 
         </div>
         <!-- /header -->
@@ -126,11 +123,6 @@
         <div class="container">
             <div class="main">
                 <p>Welcome Home</p>
-                <!-- <label>Email :</label>
-                    <input type="text" name="email" id="email1">
-                    <label>Password :</label>
-                    <input type="password" name="password" id="password">
-                    <input type="button" name="login" id="login" value="Login"> -->
             </div>
             <!-- <a href="#register_page" data-transition="slide" class="ui-btn">Sign Up</a> -->
         </div>
@@ -149,38 +141,41 @@
             $('#register').on('click', function (e) {
                 e.preventDefault();
 
-                // if ()
                 var fname = document.getElementById("fname").value
                 var lname = document.getElementById("lname").value
                 var email = document.getElementById("email").value
                 var gender = document.getElementById("gender").value
                 var pwd = document.getElementById("pwd").value
 
-                var obj = { "fname": fname, "lname": lname, "email": email, "gender": gender, "pwd": pwd };
-                dbParam = JSON.stringify(obj);
-                console.log("request", dbParam);
+                if (fname != "" && lname != "" && email != "" && gender != "" && pwd != "") {
+                    var obj = { "fname": fname, "lname": lname, "email": email, "gender": gender, "pwd": pwd };
+                    dbParam = JSON.stringify(obj);
+                    console.log("request", dbParam);
 
-                $.ajax({
-                    url: 'http://10.10.59.113/mobile_web/processregistration.php',
-                    type: "POST",
-                    dataType: 'json',
-                    data: dbParam,
+                    $.ajax({
+                        url: 'http://10.10.59.113/mobile_web/processregistration.php',
+                        type: "POST",
+                        dataType: 'json',
+                        data: dbParam,
 
-                    success: function (data) {
-                        console.log("printing success", data);
-                        self.location.href = '#index_page';
-                    },
-                    error: function (error) {
-                        console.log("prinitng error", error.responseText);
-                        alert("prinitng error" + error.responseText)
-                    }
-                });
+                        success: function (data) {
+                            console.log("printing success", data);
+                            self.location.href = '#index_page';
+                        },
+                        error: function (error) {
+                            console.log("prinitng error", error.responseText);
+                            alert("prinitng error" + error.responseText)
+                        }
+                    });
+                }
+                else {
+                    alert ("Kindly fill in the fields")
+                }
             })
 
             //login
             $('#login').on('click', function (e) {
                 e.preventDefault();
-
 
                 var email = document.getElementById("logemail").value
                 var pwd = document.getElementById("logpwd").value
@@ -202,7 +197,7 @@
                         },
                         error: function (error) {
                             console.log("prinitng error", error.responseText);
-                            alert( error.responseText);
+                            alert(error.responseText);
                         }
                     });
                 }
