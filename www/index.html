@@ -13,6 +13,14 @@
         $(document).on("mobileinit", function () {
             $.mobile.defaultPageTransition = 'slide';
         });
+
+
+        $(function () {
+            $('#hsecond').click(function () {
+                self.location.href = "#second";
+            })
+        })
+
     </script>
 </head>
 
@@ -152,17 +160,18 @@
                 console.log("request", dbParam);
 
                 $.ajax({
-                    url: 'http://10.10.59.113:3000//mobile_web/processregistration.php',
+                    url: 'http://localhost/mobile_web/processregistration.php',
                     type: "POST",
                     dataType: 'json',
                     data: dbParam,
 
                     success: function (data) {
                         console.log("printing success", data);
-                        window.location.href = '#login_page';
+                        self.location.href = '#index_page';
                     },
                     error: function (error) {
                         console.log("prinitng error", error.responseText);
+                        alert(error.responseText)
                     }
                 });
             })
@@ -179,17 +188,18 @@
                 console.log("request", dbParam);
 
                 $.ajax({
-                    url: 'http://10.10.59.113:3000/mobile_web/processlogin.php',
+                    url: 'http://localhost/mobile_web/processlogin.php',
                     type: "POST",
                     dataType: 'json',
                     data: dbParam,
 
                     success: function (data) {
                         console.log("printing success", data);
-                        window.location.href = '#index_page';
+                        self.location.href = '#index_page';
                     },
                     error: function (error) {
                         console.log("prinitng error", error.responseText);
+                        alert(error.responseText)
                     }
                 });
             })
